@@ -5,16 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-    <TableView fx:id="marks" prefHeight="600.0" prefWidth="600.0">
+    <TableView fx:id="table" prefHeight="600.0" prefWidth="600.0">
         <columns>
             <TableColumn fx:id="fileName" prefWidth="350.0" text="File Name" />
             <TableColumn fx:id="actualClass" prefWidth="125.0" text="Actual Class" />
             <TableColumn fx:id="spamProbability" prefWidth="125.0" text="Spam Probability" />
         </columns>
-        <TextField fx:id="accuracyField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <TextField fx:id="precisionField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     </TableView>
+    <TextField fx:id="accuracyField"
+               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <TextField fx:id="precisionField"
+               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 </GridPane>

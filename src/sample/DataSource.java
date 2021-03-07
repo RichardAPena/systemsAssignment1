@@ -9,6 +9,7 @@ public class DataSource {
         ObservableList<TestFile> data =
                 FXCollections.observableArrayList();
         // TODO
+        data.add(new TestFile("test", 0.25, "none"));
         return data;
     }
 }
