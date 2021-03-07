@@ -14,7 +14,7 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        fileName.setCellValueFactory(new PropertyValueFactory<TestFile, String>("fileName"));
+        fileName.setCellValueFactory(new PropertyValueFactory<TestFile, String>("filename"));
         actualClass.setCellValueFactory(new PropertyValueFactory<TestFile, String>("actualClass"));
         spamProbability.setCellValueFactory(new PropertyValueFactory<TestFile, Double>("spamProbability"));
         table.setItems(DataSource.getData());
