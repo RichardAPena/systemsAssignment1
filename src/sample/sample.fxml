@@ -13,8 +13,8 @@
             <TableColumn fx:id="spamProbability" prefWidth="125.0" text="Spam Probability" />
         </columns>
         <TextField fx:id="accuracyField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <TextField fx:id="precisionField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </TableView>
 </GridPane>
