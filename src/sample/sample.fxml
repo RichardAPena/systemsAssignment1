@@ -12,5 +12,9 @@
             <TableColumn fx:id="actualClass" prefWidth="125.0" text="Actual Class" />
             <TableColumn fx:id="spamProbability" prefWidth="125.0" text="Spam Probability" />
         </columns>
+        <TextField fx:id="accuracyField"
+                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <TextField fx:id="precisionField"
+                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     </TableView>
 </GridPane>
