@@ -34,6 +34,7 @@ public class TestFile {
     public void setFilename(String value) {
         this.filename = value;
     }
+
     public void setSpamProbability(double val) {
         this.spamProbability = val;
     }
