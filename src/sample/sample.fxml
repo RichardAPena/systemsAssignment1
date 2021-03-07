@@ -6,16 +6,30 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TextField?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-    <TableView fx:id="table" prefHeight="600.0" prefWidth="600.0">
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane alignment="center" hgap="0" vgap="5" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    
+    <TableView fx:id="table" prefHeight="600.0" prefWidth="600.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
         <columns>
-            <TableColumn fx:id="fileName" prefWidth="350.0" text="File Name" />
-            <TableColumn fx:id="actualClass" prefWidth="125.0" text="Actual Class" />
-            <TableColumn fx:id="spamProbability" prefWidth="125.0" text="Spam Probability" />
+            <TableColumn fx:id="fileName" prefWidth="249.0" text="File Name" />
+            <TableColumn fx:id="actualClass" prefWidth="99.0" text="Actual Class" />
+            <TableColumn fx:id="spamProbability" prefWidth="249.0" text="Spam Probability" />
         </columns>
-        <TextField fx:id="accuracyField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <TextField fx:id="precisionField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </TableView>
+    <VBox spacing="10" alignment="bottom_left" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <HBox spacing="10" alignment="bottom_left">
+            <Text text =" Accuracy: "/>
+            <TextField fx:id="accuracyField"
+                    prefWidth="150.0"/>
+        </HBox>
+        <HBox spacing="10" alignment="bottom_left">
+            <Text text =" Precision: "/>
+            <TextField fx:id="precisionField"
+                    prefWidth="150.0"/>
+        </HBox>
+    </VBox>
+    
 </GridPane>
