@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,6 +24,7 @@ public class Controller {
     private TreeMap<String, Double> spamProbabilityMap;
     private int numHam = 0;
     private int numSpam = 0;
+    private ObservableList<TestFile> testData;
 
     @FXML
     public void initialize() {
@@ -30,15 +33,13 @@ public class Controller {
         actualClass.setCellValueFactory(new PropertyValueFactory<>("actualClass"));
         spamProbability.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
 
-        // Initialize TreeMaps
+        // Initialize TreeMaps and ObservableList
         trainHamFreq = new TreeMap<>();
         trainSpamFreq = new TreeMap<>();
         spamProbabilityMap = new TreeMap<>();
+        testData = FXCollections.observableArrayList();
 
-//        File directoryPath1 = new File(""); // sample\data\train\ham
-//        File directoryPath2 = new File("src\\sample\\data\\train\\ham2"); // sample\data\train\ham
-//        File directoryPath3 = new File("src\\sample\\data\\train\\spam"); // sample\data\train\ham
-
+        // Parse all files and create train maps
         try {
             parseFile(new File("src\\sample\\data\\train\\ham"), trainHamFreq);
             parseFile(new File("src\\sample\\data\\train\\ham2"), trainHamFreq);
@@ -74,16 +75,21 @@ public class Controller {
             spamProbabilityMap.put(key, wis/(wis+wih));
         }
 
-//        for (Map.Entry<String, Integer> entry : trainSpamFreq.entrySet()) {
-//            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
-//        }
-
         // MORE TEST CODE
         System.out.println("about: " + spamProbabilityMap.get("about"));
         System.out.println("you: " + spamProbabilityMap.get("you"));
         System.out.println("your: " + spamProbabilityMap.get("your"));
 
-        table.setItems(DataSource.getData());
+        // baba booey
+        // Take in all the ham files in test/ham and test/spam
+        try {
+            testFile(new File("src\\sample\\data\\test\\ham"), "ham");
+            testFile(new File("src\\sample\\data\\test\\spam"), "spam");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        table.setItems(testData);
     }
 
     /**
@@ -110,6 +116,29 @@ public class Controller {
                     countWord(token, map);
                 }
             }
+        }
+    }
+
+    // TODO
+    private void testFile(File file, String actualClass) throws IOException {
+        if (file.isDirectory()) {
+            System.out.println(file.getAbsolutePath());
+            File[] content = file.listFiles();
+            for (File current : content) {
+                testFile(current, actualClass);
+            }
+        } else {
+            Scanner scanner = new Scanner(file);
+            double sum = 0;
+            while (scanner.hasNext()) {
+                String token = scanner.next();
+                if (isValidWord(token)) {
+                    if (spamProbabilityMap.containsKey(token)) {
+                        sum += Math.log(1-spamProbabilityMap.get(token))-Math.log(spamProbabilityMap.get(token));
+                    }
+                }
+            }
+            testData.add(new TestFile(file.getName(), 1/(1+Math.pow(Math.E, sum)), actualClass));
         }
     }
 
