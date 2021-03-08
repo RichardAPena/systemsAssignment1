@@ -43,13 +43,35 @@ public class Controller {
         // FILE IO data/train/ham2
         // FILE IO data/train/spam
 
+        File directoryPath1 = new File("sample\\data\\train\\ham");
+        File directoryPath2 = new File("sample\\data\\train\\ham2");
+        File directoryPath3 = new File("sample\\data\\train\\spam");
+
+        File hamList[] = directoryPath1.listFiles();
+        File ham2List[] = directoryPath2.listFiles();
+        File spamList[] = directoryPath3.listFiles();
+
+        System.out.println(directoryPath1.getAbsolutePath());
+        //System.out.println(hamList[0].getAbsolutePath());
+
+        /*
         try {
-            parseFile(new File("data\\train\\ham"), trainHamFreq);
-            parseFile(new File("data\\train\\ham2"), trainHamFreq);
-            parseFile(new File("data\\train\\spam"), trainSpamFreq);
+            for (File file : hamList) {
+                parseFile(file, trainHamFreq);
+            }
+            for (File file : ham2List) {
+                parseFile(file, trainHamFreq);
+            }
+            for (File file : spamList) {
+                parseFile(file, trainSpamFreq);
+            }
+
+            //parseFile(new File("data\\train\\ham"), trainHamFreq);
+            //parseFile(new File("data\\train\\ham2"), trainHamFreq);
+            //parseFile(new File("data\\train\\spam"), trainSpamFreq);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         // TEST CODE
         trainHamFreq.put("AAAA", 1);
