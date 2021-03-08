@@ -1,13 +1,13 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.base.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.controls.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.fxml.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.graphics.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.media.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.swing.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx.web.jar",
-        "c:\\Java\\javafx-sdk-15.0.1\\lib\\javafx-swt.jar"
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.base.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.controls.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.fxml.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.graphics.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.media.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.swing.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx.web.jar",
+        "k:\\programming\\javafx-sdk-15.0.1\\lib\\javafx-swt.jar"
     ]
 }
