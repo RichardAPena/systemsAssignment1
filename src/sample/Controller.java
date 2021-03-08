@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -18,7 +19,7 @@ public class Controller {
     @FXML private TableColumn<TestFile, Double> spamProbability;
     private TreeMap<String, Integer> trainHamFreq;
     private TreeMap<String, Integer> trainSpamFreq;
-    private TreeMap<String, Double> PSW;
+    private TreeMap<String, Double> spamProbabilityMap;
     private int numHam = 0;
     private int numSpam = 0;
 
@@ -32,16 +33,16 @@ public class Controller {
         // Initialize TreeMaps
         trainHamFreq = new TreeMap<>();
         trainSpamFreq = new TreeMap<>();
-        PSW = new TreeMap<>();
+        spamProbabilityMap = new TreeMap<>();
 
-        File directoryPath1 = new File("src\\sample\\data\\train\\ham"); // sample\data\train\ham
-        File directoryPath2 = new File("src\\sample\\data\\train\\ham2"); // sample\data\train\ham
-        File directoryPath3 = new File("src\\sample\\data\\train\\spam"); // sample\data\train\ham
+//        File directoryPath1 = new File(""); // sample\data\train\ham
+//        File directoryPath2 = new File("src\\sample\\data\\train\\ham2"); // sample\data\train\ham
+//        File directoryPath3 = new File("src\\sample\\data\\train\\spam"); // sample\data\train\ham
 
         try {
-            parseFile(directoryPath1, trainHamFreq);
-            parseFile(directoryPath2, trainHamFreq);
-            parseFile(directoryPath3, trainSpamFreq);
+            parseFile(new File("src\\sample\\data\\train\\ham"), trainHamFreq);
+            parseFile(new File("src\\sample\\data\\train\\ham2"), trainHamFreq);
+            parseFile(new File("src\\sample\\data\\train\\spam"), trainSpamFreq);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,11 +59,29 @@ public class Controller {
         System.out.println(numHam);
         System.out.println(numSpam);
 
-        // P(S|Wi) = P(Wi|S) / P(Wi|S) + P(Wi|H)
-        /*
-        P(Wi|S)
-        P(Wi|H)
-         */
+        // Calculate probabilities for spam probability map
+        for (Map.Entry<String, Integer> entry : trainSpamFreq.entrySet()) {
+            // TODO
+            String key = entry.getKey();
+            //int value = entry.getValue();
+            double wis = (double) trainSpamFreq.get(key)/numSpam;
+            double wih;
+            if (trainHamFreq.containsKey(key)) {
+                wih = (double) trainHamFreq.get(key)/numHam;
+            } else {
+                wih = 0;
+            }
+            spamProbabilityMap.put(key, wis/(wis+wih));
+        }
+
+//        for (Map.Entry<String, Integer> entry : trainSpamFreq.entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
+//        }
+
+        // MORE TEST CODE
+        System.out.println("about: " + spamProbabilityMap.get("about"));
+        System.out.println("you: " + spamProbabilityMap.get("you"));
+        System.out.println("your: " + spamProbabilityMap.get("your"));
 
         table.setItems(DataSource.getData());
     }
