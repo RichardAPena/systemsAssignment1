@@ -18,8 +18,9 @@ public class TestFile {
         return this.filename;
     }
 
-    public double getSpamProbability() {
-        return this.spamProbability;
+    public String getSpamProbability() {
+        return getSpamProbRounded();
+                //this.spamProbability;
     }
 
     public String getSpamProbRounded() {

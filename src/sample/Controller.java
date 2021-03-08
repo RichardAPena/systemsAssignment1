@@ -17,7 +17,7 @@ public class Controller {
     @FXML private TableView<TestFile> table;
     @FXML private TableColumn<TestFile, String> fileName;
     @FXML private TableColumn<TestFile, String> actualClass;
-    @FXML private TableColumn<TestFile, Double> spamProbability;
+    @FXML private TableColumn<TestFile, String> spamProbability;
     private TreeMap<String, Integer> trainHamFreq;
     private TreeMap<String, Integer> trainSpamFreq;
     private TreeMap<String, Double> spamProbabilityMap;
@@ -47,18 +47,6 @@ public class Controller {
             e.printStackTrace();
         }
 
-        // TEST CODE
-//        System.out.println(trainHamFreq.get("about"));
-//        System.out.println(trainSpamFreq.get("about"));
-//        System.out.println(trainHamFreq.get("a"));
-//        System.out.println(trainSpamFreq.get("a"));
-//        System.out.println(trainHamFreq.get("you"));
-//        System.out.println(trainSpamFreq.get("you"));
-//        System.out.println(trainHamFreq.get("your"));
-//        System.out.println(trainSpamFreq.get("your"));
-//        System.out.println(numHam);
-//        System.out.println(numSpam);
-
         // Calculate probabilities for spam probability map
         for (Map.Entry<String, Integer> entry : trainSpamFreq.entrySet()) {
             String key = entry.getKey();
@@ -72,12 +60,6 @@ public class Controller {
             spamProbabilityMap.put(key, wis/(wis+wih));
         }
 
-        // MORE TEST CODE
-//        System.out.println("about: " + spamProbabilityMap.get("about"));
-//        System.out.println("you: " + spamProbabilityMap.get("you"));
-//        System.out.println("your: " + spamProbabilityMap.get("your"));
-
-        // baba booey
         // Take in all the ham files in test/ham and test/spam
         try {
             testFile(new File("src\\sample\\data\\test\\ham"), "ham");
@@ -132,16 +114,25 @@ public class Controller {
             }
         } else {
             Scanner scanner = new Scanner(file);
+            //TreeMap<String, Integer> tempMap = new TreeMap<>();
             double sum = 0;
             while (scanner.hasNext()) {
                 String token = scanner.next();
                 if (isValidWord(token)) {
                     if (spamProbabilityMap.containsKey(token)) {
-                        sum += Math.log(1-spamProbabilityMap.get(token))-Math.log(spamProbabilityMap.get(token));
+                        //if (!tempMap.containsKey(token)) {
+                        //    tempMap.put(token, 1);
+                        //}
+                        sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
                     }
                 }
             }
-            testData.add(new TestFile(file.getName(), 1/(1+Math.pow(Math.E, sum)), actualClass));
+            //for (Map.Entry<String, Integer> entry : tempMap.entrySet()) {
+                //String token = entry.getKey();
+                //sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
+            //}
+            //sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
+            testData.add(new TestFile(file.getName(), (1/(1+Math.pow(Math.E, sum))), actualClass));
         }
     }
 
