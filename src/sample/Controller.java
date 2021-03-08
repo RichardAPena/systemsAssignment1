@@ -38,22 +38,35 @@ public class Controller {
 
             parseFile(directoryPath1, trainHamFreq);
             parseFile(directoryPath2, trainHamFreq);
-            parseFile(directoryPath3, trainHamFreq);
+            parseFile(directoryPath3, trainSpamFreq);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // TEST CODE
-        trainHamFreq.put("AAAA", 1);
-        trainSpamFreq.put("BBBB", 1);
-        System.out.println(trainSpamFreq.containsKey("AAAA"));
-        System.out.println(trainHamFreq.containsKey("AAAA"));
-        System.out.println(trainSpamFreq.containsKey("BBBB"));
-        System.out.println(trainHamFreq.containsKey("BBBB"));
-        System.out.println(trainHamFreq.get("AAAA"));
-        trainHamFreq.put("AAAA", 2);
-        System.out.println(trainHamFreq.get("AAAA"));
+        //trainHamFreq.put("AAAA", 1);
+        //trainSpamFreq.put("BBBB", 1);
+        /*
+        System.out.println(trainSpamFreq.containsKey("aaa"));
+        System.out.println(trainHamFreq.containsKey("aaa"));
+        System.out.println(trainSpamFreq.containsKey("bbb"));
+        System.out.println(trainHamFreq.containsKey("bbb"));
+        System.out.println(trainHamFreq.get("aaa"));
+        trainHamFreq.put("aaa", 2);
+        System.out.println(trainHamFreq.get("aaa"));
+*/
+
+        System.out.println(trainHamFreq.get("about"));
+        System.out.println(trainSpamFreq.get("about"));
+        System.out.println(trainHamFreq.get("a"));
+        System.out.println(trainSpamFreq.get("a"));
+        System.out.println(trainHamFreq.get("you"));
+        System.out.println(trainSpamFreq.get("you"));
+        System.out.println(trainHamFreq.get("your"));
+        System.out.println(trainSpamFreq.get("your"));
+
+
 
         table.setItems(DataSource.getData());
     }
