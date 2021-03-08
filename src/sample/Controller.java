@@ -18,6 +18,9 @@ public class Controller {
     @FXML private TableColumn<TestFile, Double> spamProbability;
     private TreeMap<String, Integer> trainHamFreq;
     private TreeMap<String, Integer> trainSpamFreq;
+    private TreeMap<String, Double> PSW;
+    private int numHam = 0;
+    private int numSpam = 0;
 
     @FXML
     public void initialize() {
@@ -29,34 +32,21 @@ public class Controller {
         // Initialize TreeMaps
         trainHamFreq = new TreeMap<>();
         trainSpamFreq = new TreeMap<>();
+        PSW = new TreeMap<>();
 
         File directoryPath1 = new File("src\\sample\\data\\train\\ham"); // sample\data\train\ham
         File directoryPath2 = new File("src\\sample\\data\\train\\ham2"); // sample\data\train\ham
         File directoryPath3 = new File("src\\sample\\data\\train\\spam"); // sample\data\train\ham
 
         try {
-
             parseFile(directoryPath1, trainHamFreq);
             parseFile(directoryPath2, trainHamFreq);
             parseFile(directoryPath3, trainSpamFreq);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // TEST CODE
-        //trainHamFreq.put("AAAA", 1);
-        //trainSpamFreq.put("BBBB", 1);
-        /*
-        System.out.println(trainSpamFreq.containsKey("aaa"));
-        System.out.println(trainHamFreq.containsKey("aaa"));
-        System.out.println(trainSpamFreq.containsKey("bbb"));
-        System.out.println(trainHamFreq.containsKey("bbb"));
-        System.out.println(trainHamFreq.get("aaa"));
-        trainHamFreq.put("aaa", 2);
-        System.out.println(trainHamFreq.get("aaa"));
-*/
-
         System.out.println(trainHamFreq.get("about"));
         System.out.println(trainSpamFreq.get("about"));
         System.out.println(trainHamFreq.get("a"));
@@ -65,8 +55,14 @@ public class Controller {
         System.out.println(trainSpamFreq.get("you"));
         System.out.println(trainHamFreq.get("your"));
         System.out.println(trainSpamFreq.get("your"));
+        System.out.println(numHam);
+        System.out.println(numSpam);
 
-
+        // P(S|Wi) = P(Wi|S) / P(Wi|S) + P(Wi|H)
+        /*
+        P(Wi|S)
+        P(Wi|H)
+         */
 
         table.setItems(DataSource.getData());
     }
@@ -85,6 +81,8 @@ public class Controller {
                 parseFile(current, map);
             }
         } else {
+            if (map == trainHamFreq) numHam++;
+            if (map == trainSpamFreq) numSpam++;
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String token = scanner.next();
