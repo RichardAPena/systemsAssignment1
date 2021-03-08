@@ -5,6 +5,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Controller {
@@ -28,7 +34,12 @@ public class Controller {
         trainSpamFreq = new TreeMap<String, Integer>();
 
         // Input stream
-        // FILE IO data/train/ham
+        try {
+            FileInputStream ham = new FileInputStream(new File("data\\train\\ham"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         // FILE IO data/train/ham2
         // FILE IO data/train/spam
 
@@ -46,5 +57,29 @@ public class Controller {
 
         System.out.println(trainHamFreq.get("AAAA"));
         table.setItems(DataSource.getData());
+    }
+
+    private void parseFile(File file) throws IOException {
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String token = scanner.next();
+            token = token.toLowerCase();
+            if (isValidWord(token)) {
+                countWord(token, trainHamFreq);
+            }
+        }
+    }
+
+    private boolean isValidWord(String word) {
+        String allLetters = "^[a-zA-Z]+$";
+        return word.matches(allLetters);
+    }
+
+    private void countWord(String token, TreeMap<String, Integer> map) {
+        if (map.containsKey(token)) {
+            map.put(token, map.get(token)+1);
+        } else {
+            map.put(token, 1);
+        }
     }
 }
