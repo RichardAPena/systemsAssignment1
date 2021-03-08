@@ -16,8 +16,11 @@ import javafx.stage.DirectoryChooser;
 /**
  * authors: Richard Pena (10074424), Samih Ejel (...)
  */
+
+
 public class Main extends Application {
 
+    public static File dir1;
     @Override
     public void start(Stage primaryStage) throws Exception{
         
@@ -34,7 +37,7 @@ public class Main extends Application {
         Button dir3Button= new Button("Choose dir3");
         nextButton.setOnAction(e -> primaryStage.setScene(new Scene(root, 600, 500)));
         dir1Button.setOnAction(e -> {
-            File dir1 = directoryChooser.showDialog(primaryStage);
+            dir1 = directoryChooser.showDialog(primaryStage);
         });
         dir2Button.setOnAction(e -> {
             File dir2 = directoryChooser.showDialog(primaryStage);
