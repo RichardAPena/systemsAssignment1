@@ -25,47 +25,53 @@ public class Controller {
     @FXML
     public void initialize() {
         // Initialize UI components
-        fileName.setCellValueFactory(new PropertyValueFactory<TestFile, String>("filename"));
-        actualClass.setCellValueFactory(new PropertyValueFactory<TestFile, String>("actualClass"));
-        spamProbability.setCellValueFactory(new PropertyValueFactory<TestFile, Double>("spamProbability"));
+        fileName.setCellValueFactory(new PropertyValueFactory<>("filename"));
+        actualClass.setCellValueFactory(new PropertyValueFactory<>("actualClass"));
+        spamProbability.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
 
         // Initialize TreeMaps
-        trainHamFreq = new TreeMap<String, Integer>();
-        trainSpamFreq = new TreeMap<String, Integer>();
+        trainHamFreq = new TreeMap<>();
+        trainSpamFreq = new TreeMap<>();
 
         // Input stream
-        try {
+        /*try {
             FileInputStream ham = new FileInputStream(new File("data\\train\\ham"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
         // FILE IO data/train/ham2
         // FILE IO data/train/spam
 
+        try {
+            parseFile(new File("data\\train\\ham"), trainHamFreq);
+            parseFile(new File("data\\train\\ham2"), trainHamFreq);
+            parseFile(new File("data\\train\\spam"), trainSpamFreq);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // TEST CODE
         trainHamFreq.put("AAAA", 1);
         trainSpamFreq.put("BBBB", 1);
-
         System.out.println(trainSpamFreq.containsKey("AAAA"));
         System.out.println(trainHamFreq.containsKey("AAAA"));
         System.out.println(trainSpamFreq.containsKey("BBBB"));
         System.out.println(trainHamFreq.containsKey("BBBB"));
-
         System.out.println(trainHamFreq.get("AAAA"));
-
         trainHamFreq.put("AAAA", 2);
-
         System.out.println(trainHamFreq.get("AAAA"));
+
         table.setItems(DataSource.getData());
     }
 
-    private void parseFile(File file) throws IOException {
+    private void parseFile(File file, TreeMap<String, Integer> map) throws IOException {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String token = scanner.next();
             token = token.toLowerCase();
             if (isValidWord(token)) {
-                countWord(token, trainHamFreq);
+                countWord(token, map);
             }
         }
     }
