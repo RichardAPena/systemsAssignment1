@@ -5,10 +5,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -33,45 +30,19 @@ public class Controller {
         trainHamFreq = new TreeMap<>();
         trainSpamFreq = new TreeMap<>();
 
-        // Input stream
-        /*try {
-            FileInputStream ham = new FileInputStream(new File("data\\train\\ham"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        File directoryPath1 = new File("src\\sample\\data\\train\\ham"); // sample\data\train\ham
+        File directoryPath2 = new File("src\\sample\\data\\train\\ham2"); // sample\data\train\ham
+        File directoryPath3 = new File("src\\sample\\data\\train\\spam"); // sample\data\train\ham
 
-        // FILE IO data/train/ham2
-        // FILE IO data/train/spam
-
-        File directoryPath1 = new File("sample\\data\\train\\ham");
-        File directoryPath2 = new File("sample\\data\\train\\ham2");
-        File directoryPath3 = new File("sample\\data\\train\\spam");
-
-        File hamList[] = directoryPath1.listFiles();
-        File ham2List[] = directoryPath2.listFiles();
-        File spamList[] = directoryPath3.listFiles();
-
-        System.out.println(directoryPath1.getAbsolutePath());
-        //System.out.println(hamList[0].getAbsolutePath());
-
-        /*
         try {
-            for (File file : hamList) {
-                parseFile(file, trainHamFreq);
-            }
-            for (File file : ham2List) {
-                parseFile(file, trainHamFreq);
-            }
-            for (File file : spamList) {
-                parseFile(file, trainSpamFreq);
-            }
 
-            //parseFile(new File("data\\train\\ham"), trainHamFreq);
-            //parseFile(new File("data\\train\\ham2"), trainHamFreq);
-            //parseFile(new File("data\\train\\spam"), trainSpamFreq);
+            parseFile(directoryPath1, trainHamFreq);
+            parseFile(directoryPath2, trainHamFreq);
+            parseFile(directoryPath3, trainHamFreq);
+
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
         // TEST CODE
         trainHamFreq.put("AAAA", 1);
@@ -87,27 +58,55 @@ public class Controller {
         table.setItems(DataSource.getData());
     }
 
+    /**
+     *
+     * @param file
+     * @param map
+     * @throws IOException
+     */
     private void parseFile(File file, TreeMap<String, Integer> map) throws IOException {
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            String token = scanner.next();
-            token = token.toLowerCase();
-            if (isValidWord(token)) {
-                countWord(token, map);
+        if (file.isDirectory()) {
+            System.out.println(file.getAbsolutePath());
+            File[] content = file.listFiles();
+            for (File current : content) {
+                parseFile(current, map);
+            }
+        } else {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String token = scanner.next();
+                token = token.toLowerCase();
+                if (isValidWord(token)) {
+                    countWord(token, map);
+                }
             }
         }
     }
 
+    /**
+     *
+     * @param word
+     * @return
+     */
     private boolean isValidWord(String word) {
         String allLetters = "^[a-zA-Z]+$";
         return word.matches(allLetters);
     }
 
+    /**
+     *
+     * @param token
+     * @param map
+     */
     private void countWord(String token, TreeMap<String, Integer> map) {
         if (map.containsKey(token)) {
             map.put(token, map.get(token)+1);
         } else {
             map.put(token, 1);
         }
+    }
+
+    private void test() {
+        // TODO: testing accuracy
     }
 }
