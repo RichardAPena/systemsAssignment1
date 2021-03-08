@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -49,22 +48,20 @@ public class Controller {
         }
 
         // TEST CODE
-        System.out.println(trainHamFreq.get("about"));
-        System.out.println(trainSpamFreq.get("about"));
-        System.out.println(trainHamFreq.get("a"));
-        System.out.println(trainSpamFreq.get("a"));
-        System.out.println(trainHamFreq.get("you"));
-        System.out.println(trainSpamFreq.get("you"));
-        System.out.println(trainHamFreq.get("your"));
-        System.out.println(trainSpamFreq.get("your"));
-        System.out.println(numHam);
-        System.out.println(numSpam);
+//        System.out.println(trainHamFreq.get("about"));
+//        System.out.println(trainSpamFreq.get("about"));
+//        System.out.println(trainHamFreq.get("a"));
+//        System.out.println(trainSpamFreq.get("a"));
+//        System.out.println(trainHamFreq.get("you"));
+//        System.out.println(trainSpamFreq.get("you"));
+//        System.out.println(trainHamFreq.get("your"));
+//        System.out.println(trainSpamFreq.get("your"));
+//        System.out.println(numHam);
+//        System.out.println(numSpam);
 
         // Calculate probabilities for spam probability map
         for (Map.Entry<String, Integer> entry : trainSpamFreq.entrySet()) {
-            // TODO
             String key = entry.getKey();
-            //int value = entry.getValue();
             double wis = (double) trainSpamFreq.get(key)/numSpam;
             double wih;
             if (trainHamFreq.containsKey(key)) {
@@ -76,9 +73,9 @@ public class Controller {
         }
 
         // MORE TEST CODE
-        System.out.println("about: " + spamProbabilityMap.get("about"));
-        System.out.println("you: " + spamProbabilityMap.get("you"));
-        System.out.println("your: " + spamProbabilityMap.get("your"));
+//        System.out.println("about: " + spamProbabilityMap.get("about"));
+//        System.out.println("you: " + spamProbabilityMap.get("you"));
+//        System.out.println("your: " + spamProbabilityMap.get("your"));
 
         // baba booey
         // Take in all the ham files in test/ham and test/spam
@@ -93,9 +90,9 @@ public class Controller {
     }
 
     /**
-     *
-     * @param file
-     * @param map
+     * This method parses all the files in a directory and stores the number of times a word appears in map (parameter)
+     * @param file input file/directory
+     * @param map which train map to
      * @throws IOException
      */
     private void parseFile(File file, TreeMap<String, Integer> map) throws IOException {
@@ -119,7 +116,13 @@ public class Controller {
         }
     }
 
-    // TODO
+    /**
+     * This method tests all files in a specified directory and calculates the probability that it will be a spam
+     * e-mail, and records that probability as a testFile object, which is then stored in the ObservableList testData
+     * @param file Input file/directory
+     * @param actualClass the type of mail this is
+     * @throws IOException
+     */
     private void testFile(File file, String actualClass) throws IOException {
         if (file.isDirectory()) {
             System.out.println(file.getAbsolutePath());
@@ -143,9 +146,9 @@ public class Controller {
     }
 
     /**
-     *
-     * @param word
-     * @return
+     * Checks if a word contains only letters
+     * @param word String to check
+     * @return true if the word contains only letters, false otherwise
      */
     private boolean isValidWord(String word) {
         String allLetters = "^[a-zA-Z]+$";
@@ -153,9 +156,9 @@ public class Controller {
     }
 
     /**
-     *
-     * @param token
-     * @param map
+     * Counts a word into a map
+     * @param token word to count
+     * @param map map to count the word in
      */
     private void countWord(String token, TreeMap<String, Integer> map) {
         if (map.containsKey(token)) {
@@ -165,7 +168,4 @@ public class Controller {
         }
     }
 
-    private void test() {
-        // TODO: testing accuracy
-    }
 }
