@@ -17,7 +17,7 @@ The user must first choose the directory of the data folder.
 After a directory is chosen, they must click the button to train using the chosen directory. 
 The program will start taking in the train and test data, and guess which files are spam. To view the results of the programs guesses and its accuracy/precision, click the 'View Table using trained data' button.
 
-Screenshots of program in use:
+Screenshots of program in use: \n
 Initial startup
 ![image](https://user-images.githubusercontent.com/59979686/110410367-c5dbef00-8056-11eb-9949-c7fab9169f11.png)
 
