@@ -7,6 +7,7 @@ Group Members:
 Project Information:
 
 This program is a JavaFX application that processes spam and ham mail, and guesses which mails are spam and which are not, displaying its accuracy and precision graphically.
+We chose to display the chosen directory to the user as an improvement, as well as making the initial screen a bit more user friendly.
 
 How to run:
 
