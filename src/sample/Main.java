@@ -30,7 +30,7 @@ public class Main extends Application {
 
         
         primaryStage.setTitle("Assignment 1");
-        //first page
+        //Initialize ui elements
         Text directoryLabel = new Text("Chosen Directory: ");
         Text directory = new Text("");
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -38,6 +38,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Button dir1Button= new Button("Choose directory of data folder");
         Button nextButton= new Button("View Table using trained data");
+
+        //Set button functions
         nextButton.setOnAction(e -> {
             primaryStage.setScene(new Scene(root, 600, 500));            
         });
@@ -45,16 +47,13 @@ public class Main extends Application {
             dir1 = directoryChooser.showDialog(primaryStage);
             directory.setText(""+dir1);
         });   
-
+        //Set first scene
         VBox layout1 = new VBox(20);
         layout1.setAlignment(Pos.CENTER);     
         layout1.getChildren().addAll(nextButton,confirmButton,dir1Button,directoryLabel,directory);
         scene1= new Scene(layout1, 600, 500);
-
-        
         primaryStage.setScene(scene1);
         primaryStage.show();
-        //File selectedDirectory = directoryChooser.showDialog(primaryStage);
     }
 
 

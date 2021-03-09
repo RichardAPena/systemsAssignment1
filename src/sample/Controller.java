@@ -87,13 +87,10 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        //Set data into fields and table
         table.setItems(testData);
         accuracy = numCorrectGuesses/numGuesses;
         precision = truePositives/(truePositives+falsePositives);
-        System.out.println(numCorrectGuesses);
-        System.out.println(precision);
-        System.out.println(accuracy);
         accuracyField.setText(String.valueOf(accuracy));
         precisionField.setText(String.valueOf(precision));
     }
@@ -106,7 +103,6 @@ public class Controller {
      */
     private  void parseFile(File file, TreeMap<String, Integer> map) throws IOException {
         if (file.isDirectory()) {
-            System.out.println(file.getAbsolutePath());
             File[] content = file.listFiles();
             for (File current : content) {
                 parseFile(current, map);
@@ -141,24 +137,16 @@ public class Controller {
             }
         } else {
             Scanner scanner = new Scanner(file);
-            //TreeMap<String, Integer> tempMap = new TreeMap<>();
             double sum = 0;
             while (scanner.hasNext()) {
                 String token = scanner.next();
                 if (isValidWord(token)) {
                     if (spamProbabilityMap.containsKey(token)) {
-                        //if (!tempMap.containsKey(token)) {
-                        //    tempMap.put(token, 1);
-                        //}
                         sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
                     }
                 }
             }
-            //for (Map.Entry<String, Integer> entry : tempMap.entrySet()) {
-                //String token = entry.getKey();
-                //sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
-            //}
-            //sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
+           
             TestFile entry = new TestFile(file.getName(), (1/(1+Math.pow(Math.E, sum))), actualClass);
             testData.add(entry);
             if (entry.thisIsSpam() == entry.getActualClass()){
