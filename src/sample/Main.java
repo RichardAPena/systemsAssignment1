@@ -21,6 +21,7 @@ import javafx.stage.DirectoryChooser;
 public class Main extends Application {
 
     public static File dir1;
+    public static Button confirmButton= new Button("Confirm");
     @Override
     public void start(Stage primaryStage) throws Exception{
         
@@ -31,19 +32,17 @@ public class Main extends Application {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         Scene scene1;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Button nextButton= new Button("Next");
         Button dir1Button= new Button("Choose dir1");
-
+        Button nextButton= new Button("Next");
         nextButton.setOnAction(e -> {
-            primaryStage.setScene(new Scene(root, 600, 500));
-            Controller.buttonPress();
+            primaryStage.setScene(new Scene(root, 600, 500));            
         });
         dir1Button.setOnAction(e -> {
             dir1 = directoryChooser.showDialog(primaryStage);
         });   
 
         VBox layout1 = new VBox(20);     
-        layout1.getChildren().addAll(nextButton,dir1Button);
+        layout1.getChildren().addAll(nextButton,confirmButton,dir1Button);
         scene1= new Scene(layout1, 600, 500);
 
         
