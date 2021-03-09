@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
@@ -18,12 +19,20 @@ public class Controller {
     @FXML private TableColumn<TestFile, String> fileName;
     @FXML private TableColumn<TestFile, String> actualClass;
     @FXML private TableColumn<TestFile, String> spamProbability;
+    @FXML private TextField accuracyField;
+    @FXML private TextField precisionField;
     private TreeMap<String, Integer> trainHamFreq;
     private TreeMap<String, Integer> trainSpamFreq;
     private TreeMap<String, Double> spamProbabilityMap;
     private int numHam = 0;
     private int numSpam = 0;
     private ObservableList<TestFile> testData;
+    private double numCorrectGuesses;
+    private double numGuesses;
+    private double truePositives;
+    private double falsePositives;
+    private double accuracy;
+    private double precision;
 
     @FXML
     public void initialize() {
@@ -37,6 +46,9 @@ public class Controller {
         trainSpamFreq = new TreeMap<>();
         spamProbabilityMap = new TreeMap<>();
         testData = FXCollections.observableArrayList();
+
+        numCorrectGuesses = 0;
+        numGuesses = 0;
 
         // Parse all files and create train maps
         try {
@@ -69,6 +81,13 @@ public class Controller {
         }
 
         table.setItems(testData);
+        accuracy = numCorrectGuesses/numGuesses;
+        precision = truePositives/(truePositives+falsePositives);
+        System.out.println(numCorrectGuesses);
+        System.out.println(precision);
+        System.out.println(accuracy);
+        accuracyField.setText(String.valueOf(accuracy));
+        precisionField.setText(String.valueOf(precision));
     }
 
     /**
@@ -132,7 +151,22 @@ public class Controller {
                 //sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
             //}
             //sum += Math.log(1-spamProbabilityMap.get(token)) - Math.log(spamProbabilityMap.get(token));
-            testData.add(new TestFile(file.getName(), (1/(1+Math.pow(Math.E, sum))), actualClass));
+            TestFile entry = new TestFile(file.getName(), (1/(1+Math.pow(Math.E, sum))), actualClass);
+            testData.add(entry);
+            if (entry.thisIsSpam() == entry.getActualClass()){
+                numGuesses +=1;
+                numCorrectGuesses+=1;
+                if((entry.thisIsSpam() == "spam")&&(entry.getActualClass() == "spam")){
+                    truePositives += 1;
+                }
+            }
+            else{
+                numGuesses+=1;
+                if ((entry.thisIsSpam() == "spam")&&(entry.getActualClass() == "ham")){
+                    falsePositives += 1;
+                }
+            }
+
         }
     }
 

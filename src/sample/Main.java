@@ -33,21 +33,14 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Button nextButton= new Button("Next");
         Button dir1Button= new Button("Choose dir1");
-        Button dir2Button= new Button("Choose dir2");
-        Button dir3Button= new Button("Choose dir3");
+
         nextButton.setOnAction(e -> primaryStage.setScene(new Scene(root, 600, 500)));
         dir1Button.setOnAction(e -> {
             dir1 = directoryChooser.showDialog(primaryStage);
-        });
-        dir2Button.setOnAction(e -> {
-            File dir2 = directoryChooser.showDialog(primaryStage);
         });   
-        dir3Button.setOnAction(e -> {
-            File dir3 = directoryChooser.showDialog(primaryStage);
-        });     
 
         VBox layout1 = new VBox(20);     
-        layout1.getChildren().addAll(nextButton,dir1Button,dir2Button,dir3Button);
+        layout1.getChildren().addAll(nextButton,dir1Button);
         scene1= new Scene(layout1, 600, 500);
 
         

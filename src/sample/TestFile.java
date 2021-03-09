@@ -7,6 +7,7 @@ public class TestFile {
     private String filename;
     private double spamProbability;
     private String actualClass;
+    private double threshold = 0.45;
     public TestFile(String filename, double spamProbability, String actualClass) {
 
         this.filename = filename;
@@ -17,7 +18,12 @@ public class TestFile {
     public String getFilename() {
         return this.filename;
     }
-
+    public String thisIsSpam(){
+        if(this.spamProbability > threshold){
+            return "spam";
+        }
+        else return "ham";
+    }
     public String getSpamProbability() {
         return getSpamProbRounded();
                 //this.spamProbability;
