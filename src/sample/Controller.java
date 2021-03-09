@@ -15,24 +15,24 @@ import java.util.TreeMap;
 
 public class Controller {
 
-    @FXML private TableView<TestFile> table;
+    @FXML private static TableView<TestFile> table;
     @FXML private TableColumn<TestFile, String> fileName;
     @FXML private TableColumn<TestFile, String> actualClass;
     @FXML private TableColumn<TestFile, String> spamProbability;
-    @FXML private TextField accuracyField;
-    @FXML private TextField precisionField;
-    private TreeMap<String, Integer> trainHamFreq;
-    private TreeMap<String, Integer> trainSpamFreq;
-    private TreeMap<String, Double> spamProbabilityMap;
-    private int numHam = 0;
-    private int numSpam = 0;
-    private ObservableList<TestFile> testData;
-    private double numCorrectGuesses;
-    private double numGuesses;
-    private double truePositives;
-    private double falsePositives;
-    private double accuracy;
-    private double precision;
+    @FXML private static TextField accuracyField;
+    @FXML private static TextField precisionField;
+    private static TreeMap<String, Integer> trainHamFreq;
+    private static TreeMap<String, Integer> trainSpamFreq;
+    private static TreeMap<String, Double> spamProbabilityMap;
+    private static int numHam = 0;
+    private static int numSpam = 0;
+    private static ObservableList<TestFile> testData;
+    private static double numCorrectGuesses;
+    private static double numGuesses;
+    private static double truePositives;
+    private static double falsePositives;
+    private static double accuracy;
+    private static double precision;
 
     @FXML
     public void initialize() {
@@ -50,6 +50,11 @@ public class Controller {
         numCorrectGuesses = 0;
         numGuesses = 0;
 
+        
+    }
+
+    public static void buttonPress(){
+        
         // Parse all files and create train maps
         try {
             parseFile(new File("src\\sample\\data\\train\\ham"), trainHamFreq);
@@ -96,7 +101,7 @@ public class Controller {
      * @param map which train map to
      * @throws IOException
      */
-    private void parseFile(File file, TreeMap<String, Integer> map) throws IOException {
+    private static void parseFile(File file, TreeMap<String, Integer> map) throws IOException {
         if (file.isDirectory()) {
             System.out.println(file.getAbsolutePath());
             File[] content = file.listFiles();
@@ -124,7 +129,7 @@ public class Controller {
      * @param actualClass the type of mail this is
      * @throws IOException
      */
-    private void testFile(File file, String actualClass) throws IOException {
+    private static void testFile(File file, String actualClass) throws IOException {
         if (file.isDirectory()) {
             System.out.println(file.getAbsolutePath());
             File[] content = file.listFiles();
@@ -175,7 +180,7 @@ public class Controller {
      * @param word String to check
      * @return true if the word contains only letters, false otherwise
      */
-    private boolean isValidWord(String word) {
+    private static boolean isValidWord(String word) {
         String allLetters = "^[a-zA-Z]+$";
         return word.matches(allLetters);
     }
@@ -185,7 +190,7 @@ public class Controller {
      * @param token word to count
      * @param map map to count the word in
      */
-    private void countWord(String token, TreeMap<String, Integer> map) {
+    private static void countWord(String token, TreeMap<String, Integer> map) {
         if (map.containsKey(token)) {
             map.put(token, map.get(token)+1);
         } else {

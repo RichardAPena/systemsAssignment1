@@ -34,7 +34,10 @@ public class Main extends Application {
         Button nextButton= new Button("Next");
         Button dir1Button= new Button("Choose dir1");
 
-        nextButton.setOnAction(e -> primaryStage.setScene(new Scene(root, 600, 500)));
+        nextButton.setOnAction(e -> {
+            primaryStage.setScene(new Scene(root, 600, 500));
+            Controller.buttonPress();
+        });
         dir1Button.setOnAction(e -> {
             dir1 = directoryChooser.showDialog(primaryStage);
         });   
