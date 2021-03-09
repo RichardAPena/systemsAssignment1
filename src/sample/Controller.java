@@ -51,19 +51,18 @@ public class Controller {
 
         Main.confirmButton.setOnAction(e ->{
             buttonPress();
-        
         });
 
         
     }
 
     public void buttonPress(){
-        
+        System.out.println(Main.dir1);
         // Parse all files and create train maps
         try {
-            parseFile(new File("src\\sample\\data\\train\\ham"), trainHamFreq);
-            parseFile(new File("src\\sample\\data\\train\\ham2"), trainHamFreq);
-            parseFile(new File("src\\sample\\data\\train\\spam"), trainSpamFreq);
+            parseFile(new File(Main.dir1 + "\\train\\ham"), trainHamFreq);
+            parseFile(new File(Main.dir1 + "\\train\\ham2"), trainHamFreq);
+            parseFile(new File(Main.dir1 + "\\train\\spam"), trainSpamFreq);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,14 +82,13 @@ public class Controller {
 
         // Take in all the ham files in test/ham and test/spam
         try {
-            testFile(new File("src\\sample\\data\\test\\ham"), "ham");
-            testFile(new File("src\\sample\\data\\test\\spam"), "spam");
+            testFile(new File(Main.dir1 + "\\test\\ham"), "ham");
+            testFile(new File(Main.dir1 + "\\test\\spam"), "spam");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         table.setItems(testData);
-        System.out.println(testData);
         accuracy = numCorrectGuesses/numGuesses;
         precision = truePositives/(truePositives+falsePositives);
         System.out.println(numCorrectGuesses);
