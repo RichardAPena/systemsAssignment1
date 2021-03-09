@@ -57,7 +57,6 @@ public class Controller {
     }
 
     public void buttonPress(){
-        System.out.println(Main.dir1);
         // Parse all files and create train maps
         try {
             parseFile(new File(Main.dir1 + "\\train\\ham"), trainHamFreq);
@@ -130,7 +129,6 @@ public class Controller {
      */
     private  void testFile(File file, String actualClass) throws IOException {
         if (file.isDirectory()) {
-            System.out.println(file.getAbsolutePath());
             File[] content = file.listFiles();
             for (File current : content) {
                 testFile(current, actualClass);
